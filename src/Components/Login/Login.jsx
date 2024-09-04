@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Login = () => {
-    const {loginUser,googleLogin,setUser} = useContext(AuthContext)
+    const {loginUser,googleLogin,setUser,facebookLogin} = useContext(AuthContext)
     const handleLogin=(e)=>{
         e.preventDefault();
         const email=e.target.email.value;
@@ -12,6 +12,10 @@ const Login = () => {
     }
     const handleGoogleLogin=()=>{
         googleLogin()
+        .then(result=>setUser(result.user))
+    }
+    const handleFacebookLogin=()=>{
+        facebookLogin()
         .then(result=>setUser(result.user))
     }
     return (
@@ -32,6 +36,7 @@ const Login = () => {
             </div>
         </form>
         <button onClick={handleGoogleLogin} className='btn btn-secondary'>Google Login</button>
+        <button onClick={handleFacebookLogin} className='btn btn-secondary'>Facebook Login</button>
         
     </div>
     );
